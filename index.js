@@ -1,6 +1,6 @@
 import('inquirer').then(({ default: inquirer }) => { // Destructure to get the default export
     const fs = require('fs');
-    const { createSVG } = require('./svgGenerator'); // Import the createSVG function from SVGgenrator.js  
+    const { logoCreate } = require('./svgGenerator'); // Import the logoCreate function from SVGgenrator.js  
 
     // creating questions to promt to user to create logo
     const questions = [
@@ -30,17 +30,17 @@ import('inquirer').then(({ default: inquirer }) => { // Destructure to get the d
         {
             type: 'input',
             name: 'shapeColor',
-            message: 'Please enter the shape color:',
+            message: 'Please enter the shape color :',
         }
     ];
 
     // Prompt user for input
     inquirer.prompt(questions).then(answers => {
         // Generate SVG based on user input
-        const svgContent = createSVG(answers.text, answers.textColor, answers.shape, answers.shapeColor);
+        const logo = logoCreate(answers.text, answers.textColor, answers.shape, answers.shapeColor);
 
         // Write SVG content to file
-        fs.writeFile('logo.svg', svgContent, (err) => {
+        fs.writeFile('logo.svg', logo, (err) => {
             if (err) throw err;
             console.log('Generated logo.svg');
         });
